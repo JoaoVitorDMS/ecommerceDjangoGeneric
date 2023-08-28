@@ -1,0 +1,53 @@
+{% extends 'model.html' %}
+{% block title %}My Cart{% endblock title %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h4>Cart Items</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Product</th>
+                    <th>Review</th>
+                    <th>Amount</th>
+                    <th>Subtotal</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+                <tbody>
+                    {% for cartProduct in cart.cartproduct_set.all %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{cartProduct.product.title}}</td>
+                            <td>{{cartProduct.review}}</td>
+                            <td>{{cartProduct.amount}}</td>
+                            <td>U$ . {{cartProduct.subtotal}}</td>
+                            <td>
+                                <a href="{% url 'ecommerceApp:menuCart' cartProduct.id %}?action=increment" class="btn btn-success"> + </a>
+                                <a href="{% url 'ecommerceApp:menuCart' cartProduct.id %}?action=decrement" class="btn btn-warning"> - </a>
+                                <a href="{% url 'ecommerceApp:menuCart' cartProduct.id %}?action=delete" class="btn btn-danger"> X </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <th colspan="4" class="text-right">Total Value</th>
+                        <th>U$ . {{cart.total}}</th>
+                        {% if cart.cartproduct_set.all %}
+                        <th><a href="{% url 'ecommerceApp:cleanCart' %}" class="btn btn-danger">Clean Cart</a></th>
+                        {% endif %}
+                    </tr>
+                        <tr>
+                            {% if cart.cartproduct_set.all %}
+                            <th><a href="{% url 'ecommerceApp:checkout' %}" class="btn btn-primary">Checkout</a></th>
+                            {% endif %}
+                        </tr>
+                </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock content %}
+

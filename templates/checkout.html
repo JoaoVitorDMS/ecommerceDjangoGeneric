@@ -1,0 +1,48 @@
+{% extends 'model.html' %}
+{% block title %} Checkout {% endblock title %}
+{% block content %}
+<h1 class="text-center">Processing</h1>
+<hr/>
+
+<div class="row">
+    <div class="col-md-6">
+        <h3>Cart items</h3>
+        <a href="{% url 'ecommerceApp:myCart' %}" class="btn btn-danger">Update Cart</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Product</th>
+                    <th>Review</th>
+                    <th>Amount</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+                <tbody>
+                    {% for cartProduct in cart.cartproduct_set.all %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{cartProduct.product.title}}</td>
+                            <td>{{cartProduct.review}}</td>
+                            <td>{{cartProduct.amount}}</td>
+                            <td>U$ . {{cartProduct.subtotal}}</td>
+                        </tr>
+                        {% endfor %}
+                </tbody>
+                <tr>
+                    <th colspan="4" class="text-right">Total Value</th>
+                    <th>U$ . {{cart.total}}</th>
+                </tr>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <h3>Purchase details</h3>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button class="btn btn-info">Buy</button>
+        </form>
+    </div>
+</div>
+        
+{% endblock content %}

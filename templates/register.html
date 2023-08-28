@@ -1,0 +1,23 @@
+{% extends "model.html" %}
+
+{% block title%}Register{% endblock title%}
+
+{% block content%}
+<style>
+    .errorlist{
+        color: #fd0000;
+        list-style: none;
+    }
+</style>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h4>Sign up now</h4>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button class="btn btn-primary">Sign up</button>
+            </form>
+            <p>Already registered? login <a href="{% url 'ecommerceApp:login' %}">here</a></p>
+        </div>
+    </div>
+{% endblock content %}

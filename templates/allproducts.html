@@ -1,0 +1,22 @@
+{% extends 'model.html' %}
+{% block title %} Inicio {% endblock title %}
+{% block content %}
+        <h1 class="text-center">Todos os produtos</h1>
+        {% for categorys in allCategory %}
+        <h3>{{categorys.title}}</h3>
+        <div class="row mt-3">
+            {% for products in categorys.product_set.all %}
+            <div class="col-md-4">
+                    <div class="m-3">
+                        <h4><a href="{% url 'ecommerceApp:productDetail' products.slug %}">{{products.title}}</a></h4>
+                            <img src="media{{products.image.url}}" class="img-fluid" width = "200" style="height: 260px; object-fit:cover;" alt="{{products.alt}}" />
+                            <p class="mt-3">Preço: <strike>U$ .{{products.price_market}}</strike> U$ .{{products.sale}}</p>
+                            <a href="{% url 'ecommerceApp:addCart' products.id %}" class="btn btn-info">Add Cart</a>
+                            <a href="#" class="btn btn-success">Buy now</a>
+                    </div>
+            </div>
+            {% endfor %}
+        </div>
+            
+        {% endfor %}
+{% endblock %}
